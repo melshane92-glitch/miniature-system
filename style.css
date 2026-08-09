@@ -79,3 +79,8 @@ li button {
 li button:hover {
     background: #c0392b;
 }
+li.completed span {
+    text-decoration: line-through;
+    color: #999;
+}
+
