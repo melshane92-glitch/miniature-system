@@ -1,6 +1,7 @@
 // Get elements
 const taskInput = document.getElementById('taskInput');
 const addBtn = document.getElementById('addBtn');
+const clearBtn = document.getElementById('clearBtn');
 const taskList = document.getElementById('taskList');
 
 // Load tasks from localStorage when page loads
@@ -32,16 +33,30 @@ function addTask() {
     taskInput.focus();
 }
 
-// Create task element in DOM
+// Create task element in DOM (FIXED: Using textContent instead of innerHTML for security)
 function createTaskElement(task) {
     const li = document.createElement('li');
     li.className = task.completed ? 'completed' : '';
     li.dataset.id = task.id;
-    li.innerHTML = `
-        <span onclick="toggleComplete(${task.id})" style="cursor: pointer; flex: 1;">${task.text}</span>
-        <button onclick="deleteTask(${task.id})">Delete</button>
-    `;
     
+    // Create span for task text
+    const span = document.createElement('span');
+    span.style.cursor = 'pointer';
+    span.style.flex = '1';
+    span.textContent = task.text;
+    span.addEventListener('click', () => toggleComplete(task.id));
+    span.setAttribute('role', 'button');
+    span.setAttribute('tabindex', '0');
+    
+    // Create delete button
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.className = 'delete-btn';
+    deleteBtn.setAttribute('aria-label', `Delete task: ${task.text}`);
+    deleteBtn.addEventListener('click', () => deleteTask(task.id));
+    
+    li.appendChild(span);
+    li.appendChild(deleteBtn);
     taskList.appendChild(li);
 }
 
@@ -82,8 +97,17 @@ function loadTasks() {
     tasks.forEach(task => createTaskElement(task));
 }
 
+// Clear all tasks
+function clearAllTasks() {
+    if (confirm('Are you sure you want to delete all tasks? This cannot be undone.')) {
+        localStorage.setItem('tasks', JSON.stringify([]));
+        taskList.innerHTML = '';
+    }
+}
+
 // Add event listeners
 addBtn.addEventListener('click', addTask);
+clearBtn.addEventListener('click', clearAllTasks);
 taskInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         addTask();
