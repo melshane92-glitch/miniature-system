@@ -11,6 +11,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 .container {
@@ -42,6 +43,12 @@ input {
     font-size: 16px;
 }
 
+input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
 button {
     padding: 10px 20px;
     background: #667eea;
@@ -50,10 +57,31 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: background 0.3s;
 }
 
 button:hover {
     background: #764ba2;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.clear-btn {
+    background: #e74c3c;
+    flex: 1;
+    width: 100%;
+}
+
+.clear-btn:hover {
+    background: #c0392b;
 }
 
 ul {
@@ -68,19 +96,49 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: all 0.3s ease;
 }
 
-li button {
+li:hover {
+    background: #efefef;
+}
+
+li span {
+    word-break: break-word;
+}
+
+.delete-btn {
     background: #e74c3c;
     padding: 5px 10px;
     font-size: 14px;
+    white-space: nowrap;
 }
 
-li button:hover {
+.delete-btn:hover {
     background: #c0392b;
 }
+
+li.completed {
+    opacity: 0.7;
+}
+
 li.completed span {
     text-decoration: line-through;
     color: #999;
 }
 
+/* Responsive design */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 24px;
+    }
+    
+    input, button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
