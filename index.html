@@ -10,12 +10,14 @@
     <div class="container">
         <h1>My To-Do List</h1>
         <div class="input-container">
-            <input type="text" id="taskInput" placeholder="Add a new task...">
-            <button id="addBtn">Add</button>
+            <input type="text" id="taskInput" placeholder="Add a new task..." aria-label="New task input">
+            <button id="addBtn" aria-label="Add new task">Add</button>
+        </div>
+        <div class="controls">
+            <button id="clearBtn" class="clear-btn" aria-label="Clear all tasks">Clear All</button>
         </div>
         <ul id="taskList"></ul>
     </div>
     <script src="script.js"></script>
 </body>
 </html>
-
